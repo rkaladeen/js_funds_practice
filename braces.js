@@ -36,6 +36,22 @@ function bracesValid(n){
     if (brace === '}'){return '{';}
   }
 
+  function findOppBrace(brace, str){
+    oppBrace = opposite(brace);
+    position_found = 0;
+    for (var index = 1; index <= str.length; index++){
+      for(var runner = index+1; runner <= str.length - index; runner++){
+        console.log("Index Starts at " + index);
+        if (str[runner] === oppBrace){
+          if(str[runner] === brace){findOppBrace(str[runner], str)}
+          position_found = runner;
+        }  
+      }
+    }
+
+    return position_found
+  }
+
   
   for (var i = 0; i < n.length; i++){
     if (brace.l_square === n[i]){brace_counter.l_square++;}
@@ -60,14 +76,20 @@ function bracesValid(n){
   var start_pos = last_pos = 0;
   
   for (var i = 0; i < n.length; i++){
-    for (var j = i+1; j < n.length; j++){
+    for (var j = i; j < n.length; j++){
+      //Conditional to find other brace
       
-      if (start_pos == last_pos && r_Brace.includes(n[j])){return false;}
+      // if (start_pos == last_pos && r_Brace.includes(n[j])){return false;}
       
-      start_pos = j
+      start_pos = i;
+      last_pos = j;
       if (opposite(n[i]) === n[j]){
+        if(r_Brace.includes(n[i])){return false;}
+        console.log("Start " + start_pos + n[i]);
+        console.log("last " + last_pos + n[j]);
         found_counter--;
-        last_pos = j;
+        i = last_pos+1
+        j++
       }
       if (start_pos == last_pos){j++;}
       
