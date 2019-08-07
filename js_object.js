@@ -50,11 +50,14 @@ let users = {
 };
 
 function staff_display(obj){
-  for (var i = 0; i < Object.keys(obj).length; i++){
-    key = Object.keys(obj)[i]
+  for (var key in obj){
     console.log(key.toUpperCase())
-    for (var j = 0; j < Object.keys(obj)[i].length; j++){
-      console.log(Object.keys(obj)[i])
+    
+    for (var val in obj[key]){
+      var temp = parseInt(val)
+      temp++
+      var char_count = obj[key][val].first_name.length + obj[key][val].last_name.length
+      console.log(temp +" - "+ obj[key][val].first_name + ", " + obj[key][val].last_name + " - " + char_count)
     }
   }
 }
